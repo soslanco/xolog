@@ -146,7 +146,7 @@ func (l *XOLogger) logHttp(duration int64, lrw *XOLResponseWriter, r *http.Reque
 
 	l.Printf("%s %s %s %s %s %s %d %d %s \"%s://%s%s%s\" \"%s\" \"%s\"\n",
 		NSecondsToSeconds(duration), raddr, rport, url.PathEscape(login), r.Proto, r.Method, lrw.statusCode, lrw.contentSize, mediatype,
-		scheme, host, r.URL.Path, qs, ua, referer)
+		scheme, host, r.URL.EscapedPath(), qs, ua, referer)
 }
 
 // LogHttpRequest
@@ -200,7 +200,7 @@ func (l *XOLogger) LogHttpRequest(r *http.Request) {
 		}
 	}
 
-	l.logger.Output(2, fmt.Sprintf("%s %s %s %s://%s%s%s \"%s\" \"%s\"\n", addr, r.Proto, r.Method, scheme, host, r.URL.Path, qs, ua, referer))
+	l.logger.Output(2, fmt.Sprintf("%s %s %s %s://%s%s%s \"%s\" \"%s\"\n", addr, r.Proto, r.Method, scheme, host, r.URL.EscapedPath(), qs, ua, referer))
 }
 
 //
